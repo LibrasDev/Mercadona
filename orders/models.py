@@ -78,4 +78,3 @@ class OrderProduct(models.Model):
     def product_price_2f(self):
         return("%.2f" % self.product_price)
     
-    

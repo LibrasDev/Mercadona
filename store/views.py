@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, ReviewRating
+from .models import Product, ProductGallery, ReviewRating
 from category.models import Category
 from carts.models import CartItem
 from carts.views import _cart_id
@@ -14,6 +14,7 @@ from orders.models import OrderProduct
 def store(request, category_slug=None):
     categories = None
     products = None
+    reviews = None
     
     if category_slug != None:
         categories = get_object_or_404(Category, slug=category_slug)
@@ -22,16 +23,21 @@ def store(request, category_slug=None):
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
+        
     else:
         products = Product.objects.all().filter(is_available=True).order_by('id')
         paginator = Paginator(products, 6)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
-    
+        
+    for product in products:
+        reviews = ReviewRating.objects.filter(product_id=product.id,status=True)
+        
     context = {
         'products': paged_products,
         'product_count': product_count,
+        'reviews': reviews
     }
     return render(request, 'store/store.html', context)
 
@@ -53,11 +59,15 @@ def product_detail(request, category_slug, product_slug):
     # Get the reviews
     reviews = ReviewRating.objects.filter(product_id=single_product.id, status=True)
     
+    # Get the product gallery
+    product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
+    
     context = {
         'single_product': single_product,
         'in_cart': in_cart,
         'orderproduct': orderproduct,
         'reviews': reviews,
+        'product_gallery': product_gallery
     }
     return render(request, 'store/product_detail.html', context)
 
