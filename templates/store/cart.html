@@ -70,9 +70,14 @@
                         </div> <!-- col.// -->
         </td>
         <td> 
-            <div class="price-wrap"> 
-                <var class="price">{{ cart_item.sub_total }}€</var> 
-                <small class="text-muted">{{ cart_item.product.price }}€ chacun </small> 
+            <div class="price-wrap">
+                <var class="price">{{ cart_item.sub_total_2f }}€</var>
+                {% if cart_item.tax_percent != 0 %}
+                    <small class="text-muted">{{ cart_item.tax_percent_price }}€ chacun</small>
+                {% else %}
+                    <small class="text-muted">{{ cart_item.product.price }}€ chacun</small>
+                {% endif %}
+                <p>{{tax_percent}}</p>
             </div> <!-- price-wrap .// -->
         </td>
         <td class="text-right"> 

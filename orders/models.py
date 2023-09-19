@@ -76,5 +76,14 @@ class OrderProduct(models.Model):
         return self.product.product_name
     
     def product_price_2f(self):
-        return("%.2f" % self.product_price)
+        tax_percent = self.product.tax_percent
+        
+        if tax_percent != 0:
+            percent_price = (self.product.price * tax_percent) / 100
+            percent_price_total = self.product.price - percent_price
+        else:
+            percent_price_total = self.product.price
+            
+        product_price = percent_price_total * self.quantity
+        return("%.2f" % product_price)
     

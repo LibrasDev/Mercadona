@@ -19,8 +19,26 @@ class CartItem(models.Model):
     quantity = models.IntegerField()
     is_active = models.BooleanField(default=True)
     
+    def tax_percent(self):
+        tax_percent = self.product.tax_percent
+        return tax_percent
+    
+    def tax_percent_price(self):
+        tax_percent = self.product.tax_percent
+        percent_price_total = (self.product.price * tax_percent) / 100
+        tax_percent_price = self.product.price - percent_price_total
+        return tax_percent_price
+
     def sub_total_2f(self):
-        sub_total = self.product.price * self.quantity
+        tax_percent = self.product.tax_percent
+        
+        if tax_percent != 0:
+            percent_price = (self.product.price * tax_percent) / 100
+            percent_price_total = self.product.price - percent_price
+        else:
+            percent_price_total = self.product.price
+            
+        sub_total = percent_price_total * self.quantity
         return("%.2f" % sub_total)
     
     def __unicode__(self):

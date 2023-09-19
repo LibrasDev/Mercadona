@@ -11,6 +11,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField(max_length=500, blank=True)
     price = models.IntegerField()
+    tax_percent = models.DecimalField(max_digits=2, decimal_places=0, default=0)
     images = models.ImageField(upload_to='photos/products')
     stock = models.IntegerField()
     is_available = models.BooleanField(default=True)
@@ -23,6 +24,10 @@ class Product(models.Model):
     
     def price_2f(self):
         return("%.2f" % self.price)
+    
+    def percent_price(self):
+        percent_price = ((self.price * self.tax_percent) / 100 )
+        return(self.price - percent_price)
     
     def __str__(self):
         return self.product_name
