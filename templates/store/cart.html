@@ -9,10 +9,10 @@
     <!-- ============================ COMPONENT 1 ================================= -->
     
     {% if not cart_items %}
-        <h2 class="text-center">Your Shopping Cart is Empty</h2>
+        <h2 class="text-center">Votre panier est vide</h2>
         <br>
         <div class="text-center">
-            <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping</a>
+            <a href="{% url 'store' %}" class="btn btn-primary">Poursuivre les achats</a>
         </div>
         <br>
     {% else %}
@@ -22,9 +22,9 @@
     <table class="table table-borderless table-shopping-cart">
     <thead class="text-muted">
     <tr class="small text-uppercase">
-      <th scope="col">Product</th>
-      <th scope="col" width="120">Quantity</th>
-      <th scope="col" width="120">Price</th>
+      <th scope="col">Produit</th>
+      <th scope="col" width="120">Quantité</th>
+      <th scope="col" width="120">Prix</th>
       <th scope="col" class="text-right" width="200"> </th>
     </tr>
     </thead>
@@ -39,7 +39,7 @@
                     <a href="{{ cart_items.product.get_url }}" class="title text-dark">{{ cart_item.product.product_name }}</a>
                     <p class="text-muted small">
                         {% if cart_item.variations.all %}
-                           {% for item in cart_item.variations.all %} 
+                           {% for item in cart_item.variations.all %}
                             {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
                            {% endfor %}
                         {% endif %}
@@ -81,7 +81,7 @@
             </div> <!-- price-wrap .// -->
         </td>
         <td class="text-right"> 
-        <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')" class="btn btn-danger"> Remove</a>
+        <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')" class="btn btn-danger"> Supprimer</a>
         </td>
     </tr>
     {% endfor %}
@@ -89,14 +89,19 @@
     </tbody>
     </table>
     </div> <!-- card.// -->
+
+    <div class="alert alert-success mt-3">
+        <p class="icontext"><i class="icon text-success fa fa-truck"></i> Livraison gratuite dans un délai de 1 à 2 semaines</p>
+    </div>
     
         </aside> <!-- col.// -->
+        
         <aside class="col-lg-3">
     
             <div class="card">
             <div class="card-body">
                 <dl class="dlist-align">
-                  <dt>Total price:</dt>
+                  <dt>Prix Total:</dt>
                   <dd class="text-right">{{ total }}€</dd>
                 </dl>
                 <dl class="dlist-align">
@@ -111,8 +116,8 @@
                 <p class="text-center mb-3">
                     <img src="{% static './images/misc/payments.png' %}" height="26">
                 </p>
-                <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
-                <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
+                    <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">Valider le panier</a>
+                <a href="{% url 'store' %}" class="btn btn-light btn-block">Poursuivre les achats</a>
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->
     

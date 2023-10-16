@@ -1,21 +1,50 @@
-<!-- ========================= FOOTER ========================= -->
-<footer class="section-footer border-top">
+<footer class="section-footer border-top bg">
 	<div class="container">
-		<section class="footer-bottom border-top row">
-			<div class="col-md-2">
-				<p class="text-muted"> &copy {% now "Y" %} Mercadona </p>
-			</div>
-			<div class="col-md-8 text-md-center">
-				<span  class="px-2">contact@mercadona.com</span>
-				<span  class="px-2">+879-332-9375</span>
-				<span  class="px-2">Street name 123, Avanue abc</span>
-			</div>
-			<div class="col-md-2 text-md-right text-muted">
-				<i class="fab fa-lg fa-cc-visa"></i>
-				<i class="fab fa-lg fa-cc-paypal"></i>
-				<i class="fab fa-lg fa-cc-mastercard"></i>
+		<section class="footer-top  padding-y">
+			<div class="row">
+				<aside class="col-md col-4">
+					<h6 class="title">Navigation</h6>
+					<ul class="list-unstyled">
+						<li> <a href="{% url 'home' %}">Accueil</a></li>
+						<li> <a href="{% url 'store' %}">Magasin</a></li>
+						<li> <a href="{% url 'cart' %}"> Mon Panier </a></li>
+						<li> <a href="mailto:" target="_blank" rel="noreferrer nooperer"> Contact </a></li>
+					</ul>
+				</aside>
+				<aside class="col-md col-4">
+					<h6 class="title">Mon compte</h6>
+					<ul class="list-unstyled">
+						{% if user.id is None %}
+							<li> <a href="{% url 'login' %}"> Se connecter </a></li>
+							<li> <a href="{% url 'register' %}"> S'inscrire </a></li>
+                        {% else %}
+							<li> <a href="{% url 'my_orders' %}"> Mes Commandes </a></li>
+							<li> <a href="{% url 'dashboard' %}"> Mon Espace </a></li>
+							<li> <a href="{% url 'logout' %}"> Déconnexion </a></li>
+                        {% endif %}
+					</ul>
+				</aside>
+				<aside class="col-md col-4">
+					<h6 class="title">Légal</h6>
+					<ul class="list-unstyled">
+						<li> <a href="#">Mentions légales</a></li>
+						<li> <a href="#">Conditions générales d'utilisation</a></li>
+						<li> <a href="#">Politique de confidentialité</a></li>
+					</ul>
+				</aside>
 			</div>
 		</section>
-	</div><!-- //container -->
+
+		<section class="footer-bottom row">
+			<div class="col-md-2">
+				<p class="text-muted">&copy{% now "Y" %} Mercadona</p>
+			</div>
+			<div class="col-md-10 text-md-center">
+				<span  class="px-3">contact@mercadona.com</span>
+				<span  class="px-3">+33 1 09 10 62 70</span>
+				<span  class="px-3">10, impasse Aubert, LefortBourg</span>
+			</div>
+
+		</section>
+	</div>
 </footer>
-<!-- ========================= FOOTER END // ========================= -->

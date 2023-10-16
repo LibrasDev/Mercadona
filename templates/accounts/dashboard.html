@@ -11,7 +11,7 @@
         <main class="col-md-9">
             <article class="card">
             <header class="card-header">
-                <strong class="d-inline-block mr-3">Logged in as:</strong>
+                <strong class="d-inline-block mr-3">Connecté en tant que :</strong>
                 <span>{{user.full_name}}</span>
             </header>
             <div class="card-body">
@@ -19,9 +19,9 @@
                     <div class="col-md-6">
                         <div class="card" style="text-align:center;">
                             <div class="card-body">
-                                <h5 class="card-title">Total Orders</h5>
+                                <h5 class="card-title">Total des commandes</h5>
                                 <h4>{{orders_count}}</h4>
-                                <a href="{% url 'my_orders' %}">View Orders</a>
+                                <a href="{% url 'my_orders' %}">Voir les commandes</a>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                             <div class="card-body">
                                 <img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
                                 <p class="mb-0">{{user.email}}</p>
-                                <p><b>Phone Number: </b>{{user.phone_number}}</p>
+                                <p><b>Numéro de téléphone: </b>{{user.phone_number}}</p>
                             </div>
                         </div>
                     </div>

@@ -3,10 +3,10 @@ from .models import Account, UserProfile
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder': 'Enter Password',
+        'placeholder': 'Saisir le mot de passe',
     }))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder': 'Confirm Password'
+        'placeholder': 'Confirmer le mot de passe'
     }))
     
     class Meta:
@@ -15,10 +15,10 @@ class RegistrationForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs['placeholder'] = 'Enter First Name'
-        self.fields['last_name'].widget.attrs['placeholder'] = 'Enter Last Name'
-        self.fields['phone_number'].widget.attrs['placeholder'] = 'Enter Phone Number'
-        self.fields['email'].widget.attrs['placeholder'] = 'Enter Email Address'
+        self.fields['first_name'].widget.attrs['placeholder'] = 'Saisir le prénom'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Saisir le nom de famille'
+        self.fields['phone_number'].widget.attrs['placeholder'] = 'Saisir le numéro de téléphone'
+        self.fields['email'].widget.attrs['placeholder'] = "Saisir l'adresse e-mail"
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             
@@ -29,7 +29,7 @@ class RegistrationForm(forms.ModelForm):
         
         if password != confirm_password:
             raise forms.ValidationError(
-                "Password does not match!"
+                "Le mot de passe ne correspond pas !"
             )
 
 class UserForm(forms.ModelForm):

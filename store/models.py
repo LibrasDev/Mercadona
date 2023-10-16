@@ -11,7 +11,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField(max_length=500, blank=True)
     price = models.IntegerField()
-    tax_percent = models.DecimalField(max_digits=2, decimal_places=0, default=0)
+    tax_percent = models.DecimalField(max_digits=2, decimal_places=0, default=0, null=False)
     images = models.ImageField(upload_to='photos/products')
     stock = models.IntegerField()
     is_available = models.BooleanField(default=True)
@@ -47,16 +47,16 @@ class Product(models.Model):
         return int(count)
     
 variation_category_choice = {
-    ('color', 'color'),
-    ('size', 'size'),
+    ('couleur', 'couleur'),
+    ('taille', 'taille'),
 }
 
 class VariationManager(models.Manager):
     def colors(self):
-        return super(VariationManager, self).filter(variation_category='color', is_active=True)
+        return super(VariationManager, self).filter(variation_category='couleur', is_active=True)
     
     def sizes(self):
-        return super(VariationManager, self).filter(variation_category='size', is_active=True)
+        return super(VariationManager, self).filter(variation_category='taille', is_active=True)
     
 class Variation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

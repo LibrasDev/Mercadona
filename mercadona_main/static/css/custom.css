@@ -60,3 +60,22 @@ ul.thumb li img {
     height: 80px;
     border: 1px solid gray;
 }
+
+/* Scrollbar */
+body::-webkit-scrollbar {
+    width: 18px;
+  }
+  
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+  
+body::-webkit-scrollbar-thumb {
+    background-color: #3167eb;
+    border-radius: 20px;
+    border: 3px solid #e2e8ec;
+}
+
+body {
+    background-color: #f3f3f3;
+}
