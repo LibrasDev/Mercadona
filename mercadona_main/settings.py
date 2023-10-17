@@ -11,24 +11,25 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+import environ
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env(env_file=str(BASE_DIR /".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", False)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Application definition
 
@@ -88,10 +89,10 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
+        'NAME': env("NAME"),
+        'USER': env("USER"),
+        'PASSWORD': env("PASSWORD"),
+        'HOST': env("HOST"),
     }
 }
 
@@ -145,13 +146,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
+PAYPAL_CLIENT_ID = env("PAYPAL_CLIENT_ID")
 
 # SMTP configuration
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env.int("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
